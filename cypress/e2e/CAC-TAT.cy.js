@@ -67,12 +67,30 @@ describe('Central de Atendimento TAT', () => {
     cy.get('@telefone').clear().should('have.value','')
 
   })
-  it.only('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios',()=>{
+  it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios',()=>{
 
-    cy.get('button[type="submit"]').click()
+    cy.contains('.button','Enviar').click()
     cy.contains('.error','Valide os campos obrigatórios!').should('be.visible')
 
-
-    
   })
+  
+  it('envia o formulário com sucesso usando um comando customizado',()=>{
+    cy.fillMandatoryFieldsAndSubmit()
+
+  })
+   it('envia o formulário com sucesso usando um comando customizado recebendo um objeto',()=>{
+    const objeto = {
+        nome: "joão",
+        sobrenome: "Paranhos",
+        email: "joao@teste.com",
+        feedback: "Feedback teste"}
+              
+    cy.fillMandatoryFieldsAndSubmitUsingAnObject(objeto)
+})
+
+it('Envia o formulário com sucesso usando um comando customizado recebendo valores padrões do comando customizando',()=>{
+
+  cy.fillMandatoryFieldsAndSubmitWithDefaults()
+
+})
 })
