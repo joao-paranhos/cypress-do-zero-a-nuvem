@@ -48,6 +48,7 @@ describe('Central de Atendimento TAT', () => {
     cy.get('#email').type('joao@teste.com')
     cy.get('#phone-checkbox').check()
     cy.contains('.button','Enviar').click()
+
     cy.contains('.error','Valide os campos obrigatórios!').should('be.visible')
 })
 
@@ -70,12 +71,16 @@ describe('Central de Atendimento TAT', () => {
   it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios',()=>{
 
     cy.contains('.button','Enviar').click()
+
     cy.contains('.error','Valide os campos obrigatórios!').should('be.visible')
 
   })
   
   it('envia o formulário com sucesso usando um comando customizado',()=>{
     cy.fillMandatoryFieldsAndSubmit()
+
+    cy.contains('.success','Mensagem enviada com sucesso.').should('be.visible')
+
 
   })
    it('envia o formulário com sucesso usando um comando customizado recebendo um objeto',()=>{
@@ -86,11 +91,43 @@ describe('Central de Atendimento TAT', () => {
         feedback: "Feedback teste"}
               
     cy.fillMandatoryFieldsAndSubmitUsingAnObject(objeto)
+
+    cy.contains('.success','Mensagem enviada com sucesso.').should('be.visible')
+
 })
 
 it('Envia o formulário com sucesso usando um comando customizado recebendo valores padrões do comando customizando',()=>{
-
+const objeto = {
+        nome: "John",
+        sobrenome: "Paranhos",
+        email: "John@teste.com",
+        feedback: "teste"}
+              
   cy.fillMandatoryFieldsAndSubmitWithDefaults()
 
+  cy.contains('.success','Mensagem enviada com sucesso.').should('be.visible')
+
+
 })
+it('seleciona um produto (YouTube) por seu texto',()=>{
+  
+  cy.get('#product').select('YouTube')
+  cy.get('#product').should('have.value','youtube')
+
+
+})
+it('seleciona um produto (Mentoria) por seu valor (value)',()=>{
+  
+  cy.get('#product').select('mentoria')
+  cy.get('#product').should('have.value','mentoria')
+
+})
+
+it('seleciona um produto (Blog) por seu índice',()=>{
+  
+  cy.get('#product').select(1)
+  cy.get('#product').should('have.value','blog')
+
+})
+
 })
