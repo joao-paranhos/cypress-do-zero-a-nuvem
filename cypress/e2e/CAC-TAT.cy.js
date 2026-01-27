@@ -200,7 +200,7 @@ describe('Central de Atendimento TAT', () => {
 
   })
 
-  it.only('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique',()=>{
+  it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique',()=>{
 
       cy.get('a[href="privacy.html"]').should('have.attr','target','_blank').and('have.attr','href','privacy.html')
     
