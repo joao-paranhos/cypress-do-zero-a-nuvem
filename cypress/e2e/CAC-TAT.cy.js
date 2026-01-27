@@ -209,7 +209,7 @@ describe('Central de Atendimento TAT', () => {
   it('acessa a página da política de privacidade removendo o target e então clicando no link',()=>{
 
     cy.get('a[href="privacy.html"]').invoke('removeAttr','target',).click()
-    cy.url().should('eq','http://localhost:55807/src/privacy.html')
+    cy.location('pathname').should('eq', '/src/privacy.html');
 
   })
 })
